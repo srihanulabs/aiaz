@@ -1,37 +1,67 @@
-import { join } from "node:path";
-import AutoLoad, { AutoloadPluginOptions } from "@fastify/autoload";
-import { FastifyPluginAsync, FastifyServerOptions } from "fastify";
+import Fastify, { type FastifyInstance } from "fastify";
+import rateLimit from "@fastify/rate-limit";
+import {
+  serializerCompiler,
+  validatorCompiler,
+  type ZodTypeProvider,
+} from "fastify-type-provider-zod";
+import { z } from "zod";
+import { config } from "./config/env";
+import authPlugin from "./plugins/auth";
+import errorHandler from "./plugins/error-handler";
+import swaggerPlugin from "./plugins/swagger";
+import authRoutes from "./modules/auth/auth.routes";
+import userRoutes from "./modules/users/users.routes";
 
-export interface AppOptions
-  extends FastifyServerOptions, Partial<AutoloadPluginOptions> {}
-// Pass --options via CLI arguments in command to enable these options.
-const options: AppOptions = {};
+export async function buildApp(): Promise<FastifyInstance> {
+  const app = Fastify({
+    logger: {
+      transport:
+        config.nodeEnv === "development" ? { target: "pino-pretty" } : undefined,
+      // Credentials must never reach the log, not even at debug level.
+      redact: [
+        "req.headers.authorization",
+        "req.headers.cookie",
+        "req.body.password",
+      ],
+    },
+  }).withTypeProvider<ZodTypeProvider>();
 
-const app: FastifyPluginAsync<AppOptions> = async (
-  fastify,
-  opts,
-): Promise<void> => {
-  // Place here your custom code!
+  // Teach Fastify to validate requests and serialize responses with Zod.
+  // One schema per route then drives validation, serialization, TypeScript
+  // inference and the OpenAPI docs — they cannot drift apart.
+  app.setValidatorCompiler(validatorCompiler);
+  app.setSerializerCompiler(serializerCompiler);
 
-  // Do not touch the following lines
+  await app.register(errorHandler);
 
-  // This loads all plugins defined in plugins
-  // those should be support plugins that are reused
-  // through your application
-  // eslint-disable-next-line no-void
-  void fastify.register(AutoLoad, {
-    dir: join(__dirname, "plugins"),
-    options: opts,
+  // Swagger must be registered before the routes it documents, so the spec
+  // sees their schemas as they are added.
+  await app.register(swaggerPlugin);
+
+  // Global backstop. Individual auth routes tighten this further via
+  // their own `config.rateLimit`.
+  await app.register(rateLimit, {
+    max: 100,
+    timeWindow: "1 minute",
   });
 
-  // This loads all plugins defined in routes
-  // define your routes in one of these
-  // eslint-disable-next-line no-void
-  void fastify.register(AutoLoad, {
-    dir: join(__dirname, "routes"),
-    options: opts,
-  });
-};
+  await app.register(authPlugin);
 
-export default app;
-export { app, options };
+  app.get(
+    "/health",
+    {
+      schema: {
+        tags: ["system"],
+        summary: "Liveness check",
+        response: { 200: z.object({ status: z.literal("ok") }) },
+      },
+    },
+    async () => ({ status: "ok" as const }),
+  );
+
+  await app.register(authRoutes, { prefix: "/api/auth" });
+  await app.register(userRoutes, { prefix: "/api/users" });
+
+  return app;
+}

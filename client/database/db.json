@@ -1,0 +1,884 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz",
+      "address": {
+        "street": "Kulas Light",
+        "suite": "Apt. 556",
+        "city": "Gwenborough",
+        "zipcode": "92998-3874",
+        "geo": {
+          "lat": "-37.3159",
+          "lng": "81.1496"
+        }
+      },
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "company": {
+        "name": "Romaguera-Crona",
+        "catchPhrase": "Multi-layered client-server neural-net",
+        "bs": "harness real-time e-markets"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Ervin Howell",
+      "username": "Antonette",
+      "email": "Shanna@melissa.tv",
+      "address": {
+        "street": "Victor Plains",
+        "suite": "Suite 879",
+        "city": "Wisokyburgh",
+        "zipcode": "90566-7771",
+        "geo": {
+          "lat": "-43.9509",
+          "lng": "-34.4618"
+        }
+      },
+      "phone": "010-692-6593 x09125",
+      "website": "anastasia.net",
+      "company": {
+        "name": "Deckow-Crist",
+        "catchPhrase": "Proactive didactic contingency",
+        "bs": "synergize scalable supply-chains"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Clementine Bauch",
+      "username": "Samantha",
+      "email": "Nathan@yesenia.net",
+      "address": {
+        "street": "Douglas Extension",
+        "suite": "Suite 847",
+        "city": "McKenziehaven",
+        "zipcode": "59590-4157",
+        "geo": {
+          "lat": "-68.6102",
+          "lng": "-47.0653"
+        }
+      },
+      "phone": "1-463-123-4447",
+      "website": "ramiro.info",
+      "company": {
+        "name": "Romaguera-Jacobson",
+        "catchPhrase": "Face to face bifurcated interface",
+        "bs": "e-enable strategic applications"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Patricia Lebsack",
+      "username": "Karianne",
+      "email": "Julianne.OConner@kory.org",
+      "address": {
+        "street": "Hoeger Mall",
+        "suite": "Apt. 692",
+        "city": "South Elvis",
+        "zipcode": "53919-4257",
+        "geo": {
+          "lat": "29.4572",
+          "lng": "-164.2990"
+        }
+      },
+      "phone": "493-170-9623 x156",
+      "website": "kale.biz",
+      "company": {
+        "name": "Robel-Corkery",
+        "catchPhrase": "Multi-tiered zero tolerance productivity",
+        "bs": "transition cutting-edge web services"
+      }
+    },
+    {
+      "id": "5",
+      "name": "Chelsey Dietrich",
+      "username": "Kamren",
+      "email": "Lucio_Hettinger@annie.ca",
+      "address": {
+        "street": "Skiles Walks",
+        "suite": "Suite 351",
+        "city": "Roscoeview",
+        "zipcode": "33263",
+        "geo": {
+          "lat": "-31.8129",
+          "lng": "62.5342"
+        }
+      },
+      "phone": "(254)954-1289",
+      "website": "demarco.info",
+      "company": {
+        "name": "Keebler LLC",
+        "catchPhrase": "User-centric fault-tolerant solution",
+        "bs": "revolutionize end-to-end systems"
+      }
+    },
+    {
+      "id": "6",
+      "name": "Mrs. Dennis Schulist",
+      "username": "Leopoldo_Corkery",
+      "email": "Karley_Dach@jasper.info",
+      "address": {
+        "street": "Norberto Crossing",
+        "suite": "Apt. 950",
+        "city": "South Christy",
+        "zipcode": "23505-1337",
+        "geo": {
+          "lat": "-71.4197",
+          "lng": "71.7478"
+        }
+      },
+      "phone": "1-477-935-8478 x6430",
+      "website": "ola.org",
+      "company": {
+        "name": "Considine-Lockman",
+        "catchPhrase": "Synchronised bottom-line interface",
+        "bs": "e-enable innovative applications"
+      }
+    },
+    {
+      "id": "7",
+      "name": "Kurtis Weissnat",
+      "username": "Elwyn.Skiles",
+      "email": "Telly.Hoeger@billy.biz",
+      "address": {
+        "street": "Rex Trail",
+        "suite": "Suite 280",
+        "city": "Howemouth",
+        "zipcode": "58804-1099",
+        "geo": {
+          "lat": "24.8918",
+          "lng": "21.8984"
+        }
+      },
+      "phone": "210.067.6132",
+      "website": "elvis.io",
+      "company": {
+        "name": "Johns Group",
+        "catchPhrase": "Configurable multimedia task-force",
+        "bs": "generate enterprise e-tailers"
+      }
+    },
+    {
+      "id": "8",
+      "name": "Nicholas Runolfsdottir V",
+      "username": "Maxime_Nienow",
+      "email": "Sherwood@rosamond.me",
+      "address": {
+        "street": "Ellsworth Summit",
+        "suite": "Suite 729",
+        "city": "Aliyaview",
+        "zipcode": "45169",
+        "geo": {
+          "lat": "-14.3990",
+          "lng": "-120.7677"
+        }
+      },
+      "phone": "586.493.6943 x140",
+      "website": "jacynthe.com",
+      "company": {
+        "name": "Abernathy Group",
+        "catchPhrase": "Implemented secondary concept",
+        "bs": "e-enable extensible e-tailers"
+      }
+    },
+    {
+      "id": "9",
+      "name": "Glenna Reichert",
+      "username": "Delphine",
+      "email": "Chaim_McDermott@dana.io",
+      "address": {
+        "street": "Dayna Park",
+        "suite": "Suite 449",
+        "city": "Bartholomebury",
+        "zipcode": "76495-3109",
+        "geo": {
+          "lat": "24.6463",
+          "lng": "-168.8889"
+        }
+      },
+      "phone": "(775)976-6794 x41206",
+      "website": "conrad.com",
+      "company": {
+        "name": "Yost and Sons",
+        "catchPhrase": "Switchable contextually-based project",
+        "bs": "aggregate real-time technologies"
+      }
+    },
+    {
+      "id": "10",
+      "name": "Clementina DuBuque",
+      "username": "Moriah.Stanton",
+      "email": "Rey.Padberg@karina.biz",
+      "address": {
+        "street": "Kattie Turnpike",
+        "suite": "Suite 198",
+        "city": "Lebsackbury",
+        "zipcode": "31428-2261",
+        "geo": {
+          "lat": "-38.2386",
+          "lng": "57.2232"
+        }
+      },
+      "phone": "024-648-3804",
+      "website": "ambrose.net",
+      "company": {
+        "name": "Hoeger LLC",
+        "catchPhrase": "Centralized empowering task-force",
+        "bs": "target end-to-end models"
+      }
+    }
+  ],
+  "patients": [
+    {
+      "id": "1",
+      "firstName": "Rohan",
+      "lastName": "Dany",
+      "email": "rahul@google.com",
+      "phoneNumber": "9545600524",
+      "countryCode": "91",
+      "status": "active"
+    },
+    {
+      "firstName": "Rahul",
+      "lastName": "Mishra",
+      "email": "rahulmishra.hello@gmail.com",
+      "id": "B8wEonW8Dqk"
+    },
+    {
+      "firstName": "Rahul",
+      "lastName": "Mishra",
+      "email": "rahulmishra.hello@gmail.com",
+      "id": "yDr7cviNF2A"
+    },
+    {
+      "firstName": "Rahul23",
+      "lastName": "Mishra",
+      "email": "rahulmishra.hello@gmail.com",
+      "id": "zyg0MAKrqoU"
+    },
+    {
+      "firstName": "Danny",
+      "lastName": "Mishra",
+      "email": "rahulmishra.hello@gmail.com",
+      "id": "GfnDOjPFTAE"
+    },
+    {
+      "firstName": "Danny12",
+      "lastName": "Mishra",
+      "email": "rahulmishra.hello@gmail.com",
+      "id": "QV4pDdlGpu0"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Apple Mac Book Pro",
+      "category": "Electronics",
+      "price": 2000
+    },
+    {
+      "id": "2",
+      "name": "Dell XPS 15",
+      "category": "Electronics",
+      "price": 1800
+    },
+    {
+      "id": "3",
+      "name": "HP Spectre x360",
+      "category": "Electronics",
+      "price": 1600
+    },
+    {
+      "id": "4",
+      "name": "Lenovo ThinkPad X1 Carbon",
+      "category": "Electronics",
+      "price": 1750
+    },
+    {
+      "id": "5",
+      "name": "Microsoft Surface Laptop 5",
+      "category": "Electronics",
+      "price": 1400
+    },
+    {
+      "id": "6",
+      "name": "Samsung Galaxy S24",
+      "category": "Electronics",
+      "price": 900
+    },
+    {
+      "id": "7",
+      "name": "Apple iPhone 15",
+      "category": "Electronics",
+      "price": 999
+    },
+    {
+      "id": "8",
+      "name": "Google Pixel 8",
+      "category": "Electronics",
+      "price": 799
+    },
+    {
+      "id": "9",
+      "name": "OnePlus 12",
+      "category": "Electronics",
+      "price": 749
+    },
+    {
+      "id": "10",
+      "name": "Sony WH-1000XM5",
+      "category": "Accessories",
+      "price": 399
+    },
+    {
+      "id": "11",
+      "name": "Apple AirPods Pro",
+      "category": "Accessories",
+      "price": 249
+    },
+    {
+      "id": "12",
+      "name": "Bose QuietComfort Ultra",
+      "category": "Accessories",
+      "price": 429
+    },
+    {
+      "id": "13",
+      "name": "Logitech MX Master 3S",
+      "category": "Accessories",
+      "price": 99
+    },
+    {
+      "id": "14",
+      "name": "Keychron K8 Pro",
+      "category": "Accessories",
+      "price": 119
+    },
+    {
+      "id": "15",
+      "name": "Dell UltraSharp 27",
+      "category": "Electronics",
+      "price": 599
+    },
+    {
+      "id": "16",
+      "name": "LG UltraGear 32",
+      "category": "Electronics",
+      "price": 699
+    },
+    {
+      "id": "17",
+      "name": "Samsung Odyssey G7",
+      "category": "Electronics",
+      "price": 649
+    },
+    {
+      "id": "18",
+      "name": "Apple Studio Display",
+      "category": "Electronics",
+      "price": 1599
+    },
+    {
+      "id": "19",
+      "name": "Amazon Kindle Paperwhite",
+      "category": "Electronics",
+      "price": 149
+    },
+    {
+      "id": "20",
+      "name": "Apple iPad Air",
+      "category": "Electronics",
+      "price": 699
+    },
+    {
+      "id": "21",
+      "name": "Samsung Galaxy Tab S9",
+      "category": "Electronics",
+      "price": 799
+    },
+    {
+      "id": "22",
+      "name": "Apple Watch Series 9",
+      "category": "Wearables",
+      "price": 429
+    },
+    {
+      "id": "23",
+      "name": "Samsung Galaxy Watch 6",
+      "category": "Wearables",
+      "price": 299
+    },
+    {
+      "id": "24",
+      "name": "Garmin Venu 3",
+      "category": "Wearables",
+      "price": 449
+    },
+    {
+      "id": "25",
+      "name": "Fitbit Charge 6",
+      "category": "Wearables",
+      "price": 159
+    },
+    {
+      "id": "26",
+      "name": "Sony PlayStation 5",
+      "category": "Gaming",
+      "price": 499
+    },
+    {
+      "id": "27",
+      "name": "Microsoft Xbox Series X",
+      "category": "Gaming",
+      "price": 499
+    },
+    {
+      "id": "28",
+      "name": "Nintendo Switch OLED",
+      "category": "Gaming",
+      "price": 349
+    },
+    {
+      "id": "29",
+      "name": "Steam Deck OLED",
+      "category": "Gaming",
+      "price": 549
+    },
+    {
+      "id": "30",
+      "name": "Logitech G Pro Wireless",
+      "category": "Gaming",
+      "price": 129
+    },
+    {
+      "id": "31",
+      "name": "Razer BlackWidow V4",
+      "category": "Gaming",
+      "price": 179
+    },
+    {
+      "id": "32",
+      "name": "Sony Bravia 55",
+      "category": "Television",
+      "price": 1299
+    },
+    {
+      "id": "33",
+      "name": "LG OLED C3 55",
+      "category": "Television",
+      "price": 1399
+    },
+    {
+      "id": "34",
+      "name": "Samsung Neo QLED 65",
+      "category": "Television",
+      "price": 1899
+    },
+    {
+      "id": "35",
+      "name": "TCL QLED 55",
+      "category": "Television",
+      "price": 649
+    },
+    {
+      "id": "36",
+      "name": "Sony Alpha A7 IV",
+      "category": "Cameras",
+      "price": 2499
+    },
+    {
+      "id": "37",
+      "name": "Canon EOS R6",
+      "category": "Cameras",
+      "price": 2299
+    },
+    {
+      "id": "38",
+      "name": "Nikon Z6 II",
+      "category": "Cameras",
+      "price": 1999
+    },
+    {
+      "id": "39",
+      "name": "Fujifilm X-T5",
+      "category": "Cameras",
+      "price": 1699
+    },
+    {
+      "id": "40",
+      "name": "GoPro HERO12",
+      "category": "Cameras",
+      "price": 399
+    },
+    {
+      "id": "41",
+      "name": "DJI Mini 4 Pro",
+      "category": "Drones",
+      "price": 999
+    },
+    {
+      "id": "42",
+      "name": "DJI Air 3",
+      "category": "Drones",
+      "price": 1099
+    },
+    {
+      "id": "43",
+      "name": "Anker PowerCore 20K",
+      "category": "Accessories",
+      "price": 59
+    },
+    {
+      "id": "44",
+      "name": "Belkin USB-C Hub",
+      "category": "Accessories",
+      "price": 79
+    },
+    {
+      "id": "45",
+      "name": "Samsung 2TB SSD",
+      "category": "Storage",
+      "price": 159
+    },
+    {
+      "id": "46",
+      "name": "WD Black 2TB SSD",
+      "category": "Storage",
+      "price": 169
+    },
+    {
+      "id": "47",
+      "name": "SanDisk Extreme 1TB",
+      "category": "Storage",
+      "price": 129
+    },
+    {
+      "id": "48",
+      "name": "Seagate 4TB External Drive",
+      "category": "Storage",
+      "price": 119
+    },
+    {
+      "id": "49",
+      "name": "Apple Magic Keyboard",
+      "category": "Accessories",
+      "price": 99
+    },
+    {
+      "id": "50",
+      "name": "Apple Magic Mouse",
+      "category": "Accessories",
+      "price": 79
+    },
+    {
+      "id": "51",
+      "name": "JBL Charge 5",
+      "category": "Audio",
+      "price": 179
+    },
+    {
+      "id": "52",
+      "name": "Sonos Era 100",
+      "category": "Audio",
+      "price": 249
+    },
+    {
+      "id": "53",
+      "name": "Bose SoundLink Flex",
+      "category": "Audio",
+      "price": 149
+    },
+    {
+      "id": "54",
+      "name": "Marshall Emberton II",
+      "category": "Audio",
+      "price": 169
+    },
+    {
+      "id": "55",
+      "name": "Sonos Beam Gen 2",
+      "category": "Audio",
+      "price": 499
+    },
+    {
+      "id": "56",
+      "name": "Apple HomePod Mini",
+      "category": "Smart Home",
+      "price": 99
+    },
+    {
+      "id": "57",
+      "name": "Google Nest Hub",
+      "category": "Smart Home",
+      "price": 129
+    },
+    {
+      "id": "58",
+      "name": "Amazon Echo Show 10",
+      "category": "Smart Home",
+      "price": 249
+    },
+    {
+      "id": "59",
+      "name": "Philips Hue Starter Kit",
+      "category": "Smart Home",
+      "price": 179
+    },
+    {
+      "id": "60",
+      "name": "Ring Video Doorbell",
+      "category": "Smart Home",
+      "price": 199
+    },
+    {
+      "id": "61",
+      "name": "Nespresso Vertuo Plus",
+      "category": "Appliances",
+      "price": 159
+    },
+    {
+      "id": "62",
+      "name": "Dyson V15 Detect",
+      "category": "Appliances",
+      "price": 749
+    },
+    {
+      "id": "63",
+      "name": "Dyson Airwrap",
+      "category": "Appliances",
+      "price": 599
+    },
+    {
+      "id": "64",
+      "name": "Philips Air Fryer",
+      "category": "Appliances",
+      "price": 149
+    },
+    {
+      "id": "65",
+      "name": "Instant Pot Duo",
+      "category": "Appliances",
+      "price": 99
+    },
+    {
+      "id": "66",
+      "name": "Nike Air Max 270",
+      "category": "Footwear",
+      "price": 150
+    },
+    {
+      "id": "67",
+      "name": "Adidas Ultraboost",
+      "category": "Footwear",
+      "price": 180
+    },
+    {
+      "id": "68",
+      "name": "New Balance 990",
+      "category": "Footwear",
+      "price": 195
+    },
+    {
+      "id": "69",
+      "name": "Puma RS-X",
+      "category": "Footwear",
+      "price": 110
+    },
+    {
+      "id": "70",
+      "name": "Reebok Nano X4",
+      "category": "Footwear",
+      "price": 140
+    },
+    {
+      "id": "71",
+      "name": "Levi's 501 Jeans",
+      "category": "Clothing",
+      "price": 89
+    },
+    {
+      "id": "72",
+      "name": "Nike Tech Fleece",
+      "category": "Clothing",
+      "price": 120
+    },
+    {
+      "id": "73",
+      "name": "Adidas Essentials Hoodie",
+      "category": "Clothing",
+      "price": 75
+    },
+    {
+      "id": "74",
+      "name": "North Face Jacket",
+      "category": "Clothing",
+      "price": 249
+    },
+    {
+      "id": "75",
+      "name": "Patagonia Fleece",
+      "category": "Clothing",
+      "price": 179
+    },
+    {
+      "id": "76",
+      "name": "Samsonite Carry-On",
+      "category": "Travel",
+      "price": 199
+    },
+    {
+      "id": "77",
+      "name": "American Tourister Backpack",
+      "category": "Travel",
+      "price": 79
+    },
+    {
+      "id": "78",
+      "name": "Osprey Farpoint 40",
+      "category": "Travel",
+      "price": 185
+    },
+    {
+      "id": "79",
+      "name": "Herschel Little America",
+      "category": "Travel",
+      "price": 129
+    },
+    {
+      "id": "80",
+      "name": "Travelpro Platinum Elite",
+      "category": "Travel",
+      "price": 249
+    },
+    {
+      "id": "81",
+      "name": "Kindle Scribe",
+      "category": "Electronics",
+      "price": 389
+    },
+    {
+      "id": "82",
+      "name": "Remarkable 2",
+      "category": "Electronics",
+      "price": 399
+    },
+    {
+      "id": "83",
+      "name": "Elgato Stream Deck",
+      "category": "Accessories",
+      "price": 149
+    },
+    {
+      "id": "84",
+      "name": "Blue Yeti Microphone",
+      "category": "Audio",
+      "price": 129
+    },
+    {
+      "id": "85",
+      "name": "Shure MV7",
+      "category": "Audio",
+      "price": 249
+    },
+    {
+      "id": "86",
+      "name": "Rode NT-USB",
+      "category": "Audio",
+      "price": 169
+    },
+    {
+      "id": "87",
+      "name": "TP-Link WiFi 6 Router",
+      "category": "Networking",
+      "price": 129
+    },
+    {
+      "id": "88",
+      "name": "Netgear Nighthawk Router",
+      "category": "Networking",
+      "price": 249
+    },
+    {
+      "id": "89",
+      "name": "Ubiquiti UniFi Access Point",
+      "category": "Networking",
+      "price": 179
+    },
+    {
+      "id": "90",
+      "name": "Google Nest WiFi Pro",
+      "category": "Networking",
+      "price": 199
+    },
+    {
+      "id": "91",
+      "name": "ASUS ROG Laptop",
+      "category": "Gaming",
+      "price": 1899
+    },
+    {
+      "id": "92",
+      "name": "Acer Predator Helios",
+      "category": "Gaming",
+      "price": 1599
+    },
+    {
+      "id": "93",
+      "name": "MSI Raider GE78",
+      "category": "Gaming",
+      "price": 2299
+    },
+    {
+      "id": "94",
+      "name": "Razer Blade 15",
+      "category": "Gaming",
+      "price": 2499
+    },
+    {
+      "id": "95",
+      "name": "Alienware Aurora",
+      "category": "Gaming",
+      "price": 2199
+    },
+    {
+      "id": "96",
+      "name": "Canon Pixma Printer",
+      "category": "Printers",
+      "price": 199
+    },
+    {
+      "id": "97",
+      "name": "HP LaserJet Pro",
+      "category": "Printers",
+      "price": 299
+    },
+    {
+      "id": "98",
+      "name": "Epson EcoTank",
+      "category": "Printers",
+      "price": 349
+    },
+    {
+      "id": "99",
+      "name": "Brother HL-L2350DW",
+      "category": "Printers",
+      "price": 179
+    },
+    {
+      "id": "100",
+      "name": "Fujifilm Instax Mini",
+      "category": "Cameras",
+      "price": 99
+    },
+    {
+      "id": "101",
+      "name": "DJI Osmo Pocket 3",
+      "category": "Cameras",
+      "price": 519
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

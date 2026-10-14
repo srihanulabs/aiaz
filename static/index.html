@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a11y playground</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+    <a class="logo" href="/">
+      <span class="visually-hidden" aria-label="Go to home page">Logo</span>
+    </a>
+  </header>
+  
+    <main>
+
+        <div aria-live="polite" aria-atomic="true" id="live-region">
+            <ul role="list">
+                <li>Critical Warning</li>
+                <li>This is a critical warning message</li>
+            </ul>
+        </div>
+        
+    <form action="" aria-label="Yahoo section">
+    <table>
+        <tbody>        
+        <tr>
+            <td>
+                First Name
+            </td>
+            <td>
+                <input type="text" name="firstName" id="firstName">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Last Name
+            </td>
+            <td>
+                <input type="text" name="lastName" id="lastName">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email
+            </td>
+            <td>
+                <input type="email" name="email" id="email">
+            </td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>
+                <select name="gender" id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>    
+
+    </form>
+    </main>
+    <footer aria-label="Page Footer">
+        <p>&copy;
+            <ul aria-label="Quick Links">
+                <li aria-label="Go to home page">Home</li>
+                <li aria-label="Go to About Us Page">About</li>
+                <li aria-label="Go to Contact Page">Contact</li>
+            </ul>
+            <form action="" method="post" aria-label="Subscribe to newsletter">
+                <input type="button" value="Call to action">
+                <input type="text" name="email" id="email" placeholder="Enter your email">
+                <input type="button" value="Get out of here">
+            </form>
+        </p>
+    </footer>
+</body>
+</html>
+           

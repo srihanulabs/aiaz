@@ -1,0 +1,850 @@
+{
+  "info": {
+    "name": "AIAZ Auth API",
+    "description": "Login, registration, refresh-token rotation and role-based authorization.\n\nRun the requests top to bottom (or use the Collection Runner). Access tokens are captured automatically into {{accessToken}} by each request's test script, so you never paste a JWT by hand.\n\nIMPORTANT: leave Postman's cookie jar ON. The refresh token is an httpOnly signed cookie scoped to /api/auth; Postman stores and replays it for you. You will not see it in a response body -- that is the point of httpOnly.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3100"
+    },
+    {
+      "key": "email",
+      "value": ""
+    },
+    {
+      "key": "password",
+      "value": "a-long-enough-password"
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "adminEmail",
+      "value": "admin@aiaz.local"
+    },
+    {
+      "key": "adminPassword",
+      "value": "change-me-in-production-now"
+    },
+    {
+      "key": "adminToken",
+      "value": ""
+    },
+    {
+      "key": "adminId",
+      "value": ""
+    },
+    {
+      "key": "escEmail",
+      "value": ""
+    },
+    {
+      "key": "wrongPassBody",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "00 Health",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('status ok', () => pm.expect(pm.response.json().status).to.eql('ok'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "01 Register",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Fresh email every run so this request stays repeatable.",
+              "pm.collectionVariables.set('email', 'pm-' + Date.now() + '@example.com');"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('201 Created', () => pm.response.to.have.status(201));",
+              "const b = pm.response.json();",
+              "pm.test('returns an access token', () => pm.expect(b.accessToken).to.be.a('string'));",
+              "pm.test('default role is USER', () => pm.expect(b.user.role).to.eql('USER'));",
+              "pm.test('passwordHash is NOT leaked', () => pm.expect(b.user).to.not.have.property('passwordHash'));",
+              "pm.test('sets httpOnly SameSite=Strict refresh cookie', () => {",
+              "  const sc = pm.response.headers.get('set-cookie') || '';",
+              "  pm.expect(sc).to.include('HttpOnly');",
+              "  pm.expect(sc).to.include('SameSite=Strict');",
+              "});",
+              "pm.collectionVariables.set('accessToken', b.accessToken);",
+              "pm.collectionVariables.set('userId', b.user.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"name\": \"Postman User\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      }
+    },
+    {
+      "name": "02 Register duplicate email (409)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('409 Conflict', () => pm.response.to.have.status(409));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      }
+    },
+    {
+      "name": "03 Register validation error (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('400 Bad Request', () => pm.response.to.have.status(400));",
+              "pm.test('reports every bad field at once', () => {",
+              "  pm.expect(pm.response.json().details).to.be.an('array').with.lengthOf(2);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"not-an-email\",\n  \"password\": \"short\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      }
+    },
+    {
+      "name": "04 Register cannot self-assign ADMIN",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.collectionVariables.set('escEmail', 'esc-' + Date.now() + '@example.com');"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('201 Created', () => pm.response.to.have.status(201));",
+              "pm.test('role in the body is IGNORED, still USER', () => {",
+              "  pm.expect(pm.response.json().user.role).to.eql('USER');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{escEmail}}\",\n  \"password\": \"{{password}}\",\n  \"role\": \"ADMIN\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      }
+    },
+    {
+      "name": "05 Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "const b = pm.response.json();",
+              "pm.test('returns an access token', () => pm.expect(b.accessToken).to.be.a('string'));",
+              "pm.collectionVariables.set('accessToken', b.accessToken);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "06 Login wrong password (401)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('401 Unauthorized', () => pm.response.to.have.status(401));",
+              "pm.test('generic message', () => {",
+              "  pm.expect(pm.response.json().message).to.eql('Invalid email or password');",
+              "});",
+              "// Saved so the next request can prove the two responses are identical.",
+              "pm.collectionVariables.set('wrongPassBody', pm.response.text());"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"definitely-the-wrong-password\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "07 Login unknown email (identical 401)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('401 Unauthorized', () => pm.response.to.have.status(401));",
+              "pm.test('byte-identical to the wrong-password response', () => {",
+              "  pm.expect(pm.response.text()).to.eql(pm.collectionVariables.get('wrongPassBody'));",
+              "});",
+              "// No user enumeration: you cannot tell registered emails from unregistered ones."
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"nobody-here-at-all@example.com\",\n  \"password\": \"definitely-the-wrong-password\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "08 Me with token (200)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('returns my identity', () => {",
+              "  pm.expect(pm.response.json().user.email).to.eql(pm.collectionVariables.get('email'));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{accessToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/me",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "me"
+          ]
+        }
+      }
+    },
+    {
+      "name": "09 Me without token (401)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('401 Unauthorized', () => pm.response.to.have.status(401));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/me",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "me"
+          ]
+        }
+      }
+    },
+    {
+      "name": "10 Me with tampered token (401)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('401 Unauthorized', () => pm.response.to.have.status(401));",
+              "// This token claims role ADMIN but the signature does not match.",
+              "// Editing claims client-side gets you nothing."
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwicm9sZSI6IkFETUlOIn0.not-a-valid-signature"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/me",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "me"
+          ]
+        }
+      }
+    },
+    {
+      "name": "11 RBAC USER blocked from list (403)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('403 Forbidden', () => pm.response.to.have.status(403));",
+              "pm.test('403 not 401: identity proven, permission denied', () => {",
+              "  pm.expect(pm.response.json().error).to.eql('Forbidden');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{accessToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      }
+    },
+    {
+      "name": "12 Refresh rotates the token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "const b = pm.response.json();",
+              "pm.test('issues a new access token', () => pm.expect(b.accessToken).to.be.a('string'));",
+              "pm.test('issues a new refresh cookie (rotation)', () => {",
+              "  pm.expect(pm.response.headers.get('set-cookie') || '').to.include('refresh_token=');",
+              "});",
+              "pm.collectionVariables.set('accessToken', b.accessToken);",
+              "// No Authorization header here on purpose: the cookie IS the credential,",
+              "// so this works even after the access token has expired."
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/refresh",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "refresh"
+          ]
+        }
+      }
+    },
+    {
+      "name": "13 Logout (204)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('204 No Content', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/logout",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "logout"
+          ]
+        }
+      }
+    },
+    {
+      "name": "14 Refresh after logout (401)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('401 Unauthorized', () => pm.response.to.have.status(401));",
+              "pm.test('the session really is dead', () => {",
+              "  pm.expect(pm.response.json().error).to.eql('Unauthorized');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/refresh",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "refresh"
+          ]
+        }
+      }
+    },
+    {
+      "name": "15 Admin login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "const b = pm.response.json();",
+              "pm.test('role is ADMIN', () => pm.expect(b.user.role).to.eql('ADMIN'));",
+              "pm.collectionVariables.set('adminToken', b.accessToken);",
+              "pm.collectionVariables.set('adminId', b.user.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "16 Admin lists users (200)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('returns a user array', () => pm.expect(pm.response.json().users).to.be.an('array'));",
+              "// Same URL that returned 403 in request 11. Only the role differs."
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users?take=10",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ],
+          "query": [
+            {
+              "key": "take",
+              "value": "10"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "17 Admin promotes user to MODERATOR",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('role changed to MODERATOR', () => {",
+              "  pm.expect(pm.response.json().user.role).to.eql('MODERATOR');",
+              "});",
+              "// Side effect: that user's sessions were revoked, so the new role",
+              "// applies on their next login rather than at token expiry."
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"role\": \"MODERATOR\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/users/{{userId}}/role",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "{{userId}}",
+            "role"
+          ]
+        }
+      }
+    },
+    {
+      "name": "18 Admin cannot self-demote (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('400 Bad Request', () => pm.response.to.have.status(400));",
+              "pm.test('lockout guard fires', () => {",
+              "  pm.expect(pm.response.json().message).to.include('own admin role');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"role\": \"USER\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/users/{{adminId}}/role",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "{{adminId}}",
+            "role"
+          ]
+        }
+      }
+    },
+    {
+      "name": "19 Unknown route (404)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('404 Not Found', () => pm.response.to.have.status(404));",
+              "pm.test('JSON error body, not an HTML page', () => {",
+              "  pm.expect(pm.response.json().error).to.eql('Not Found');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/does-not-exist",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "does-not-exist"
+          ]
+        }
+      }
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "if (pm.response.code === 429) {",
+          "  console.warn(\"RATE LIMITED (429) on: \" + pm.info.requestName);",
+          "  console.warn(\"This is the rate limiter working, not a bug. Login allows 5 per 15 min, register 10 per hour.\");",
+          "  console.warn(\"To reset immediately, restart the dev server (limits are in-memory).\");",
+          "}"
+        ]
+      }
+    }
+  ]
+}
