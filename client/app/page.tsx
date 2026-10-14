@@ -1,8 +1,15 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
     <main>
       Dev Deployments
-      <img src="/rahul_mishra.jpg" alt="Vercel Logo" width={130} />
+      <Image
+        src="/rahul_mishra.jpg"
+        alt="Vercel Logo"
+        width={100}
+        height={24}
+      />
     </main>
   );
 }
