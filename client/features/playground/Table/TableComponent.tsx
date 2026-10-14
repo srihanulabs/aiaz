@@ -8,9 +8,7 @@ export default function TableComponent() {
   useEffect(() => {
     httpGet("products").then((data) => setProductsList(data.data));
   }, []);
-  const handelQueryUpdate = (e: React.InputEvent) => {
-    console.log("Event, ", e.target.value);
-  };
+  const handelQueryUpdate = (e: React.InputEvent) => {};
   return (
     <div className="m-2">
       <input
