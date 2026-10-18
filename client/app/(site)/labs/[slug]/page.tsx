@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FollowLinks from "@/features/labs/components/FollowLinks";
@@ -24,7 +23,7 @@ export async function generateMetadata({
   return {
     title: `${post.title} — Labs`,
     description: post.excerpt,
-    authors: [{ name: siteConfig.author, url: siteConfig.portfolioUrl }],
+    authors: [{ name: siteConfig.author }],
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -92,31 +91,16 @@ export default async function PostPage({ params }: PageProps<"/labs/[slug]">) {
           <h1 className="animate-rise mt-6 max-w-3xl text-balance text-4xl font-semibold leading-[1.1] tracking-tight [animation-delay:160ms] sm:text-6xl">
             {post.title}
           </h1>
-          <p className="animate-rise mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted [animation-delay:240ms]">
+          <p className="animate-rise mt-8 font-mono text-xs uppercase tracking-widest text-faint [animation-delay:220ms]">
+            Abstract
+          </p>
+          <p className="animate-rise mt-3 max-w-2xl text-pretty text-lg leading-relaxed text-muted [animation-delay:260ms]">
             {post.excerpt}
           </p>
 
-          <div className="animate-rise mt-8 flex items-center gap-4 [animation-delay:320ms]">
-            <Image
-              src="/rahul_mishra.jpg"
-              alt=""
-              width={44}
-              height={44}
-              className="size-11 rounded-full border border-line object-cover"
-            />
-            <div className="text-sm">
-              <p className="font-medium">{siteConfig.author}</p>
-              <a
-                href={siteConfig.portfolioUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-faint hover:text-cyan-300"
-              >
-                rahulmishra.com
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            </div>
-          </div>
+          <p className="animate-rise mt-8 font-mono text-sm text-muted [animation-delay:320ms]">
+            {siteConfig.author} · {siteConfig.name}
+          </p>
         </div>
       </header>
 
@@ -131,8 +115,7 @@ export default async function PostPage({ params }: PageProps<"/labs/[slug]">) {
                 This post is in the works
               </h2>
               <p className="mt-3 text-muted">
-                It&apos;s still being written in the lab. Follow along to catch it
-                the moment it lands.
+                It&apos;s still being written up in the lab. Check back soon.
               </p>
               <div className="mt-6">
                 <FollowLinks />
@@ -156,9 +139,9 @@ export default async function PostPage({ params }: PageProps<"/labs/[slug]">) {
       </div>
 
       <section className="border-t border-line" aria-labelledby="keep-reading">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+        <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8">
           <h2 id="keep-reading" className="text-2xl font-semibold tracking-tight">
-            Keep reading
+            Related research
           </h2>
           <ul className="mt-8 grid gap-5 md:grid-cols-2">
             {related.map((p) => (
@@ -168,15 +151,6 @@ export default async function PostPage({ params }: PageProps<"/labs/[slug]">) {
             ))}
           </ul>
 
-          <div className="reveal mt-12 rounded-3xl border border-line bg-surface/70 p-8 sm:p-10">
-            <h2 className="text-xl font-semibold tracking-tight">
-              Enjoyed this? Follow the lab.
-            </h2>
-            <p className="mb-6 mt-2 text-muted">
-              New posts land on LinkedIn and social media first.
-            </p>
-            <FollowLinks />
-          </div>
         </div>
       </section>
     </article>

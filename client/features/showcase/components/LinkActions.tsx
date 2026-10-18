@@ -15,48 +15,36 @@ const linkActions = [
   Icon: typeof GithubIcon;
 }[];
 
-const actionBase =
-  "inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-medium transition-colors";
-
 type Props = {
   name: string;
-  links: ProjectLinks;
+  links?: ProjectLinks;
   /** Needs the parent to set --accent (SpotlightCard or a style prop). */
   className?: string;
 };
 
-/** GitHub / video / live-demo buttons. Unset URLs render as disabled "coming soon". */
-const LinkActions = ({ name, links, className = "" }: Props) => (
-  <ul className={`flex flex-wrap gap-2 ${className}`} aria-label={`${name} links`}>
-    {linkActions.map(({ key, label, Icon }) => {
-      const url = links[key];
-      return (
+/** GitHub / video / live-demo buttons. Only links that exist are shown; renders nothing if none do. */
+const LinkActions = ({ name, links, className = "" }: Props) => {
+  const available = linkActions.filter(({ key }) => links?.[key]);
+  if (available.length === 0) return null;
+
+  return (
+    <ul className={`flex flex-wrap gap-2 ${className}`} aria-label={`${name} links`}>
+      {available.map(({ key, label, Icon }) => (
         <li key={key}>
-          {url ? (
-            <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${actionBase} border-(--accent)/30 bg-(--accent)/10 text-(--accent) hover:bg-(--accent)/20`}
-            >
-              <Icon className="size-4" />
-              {label}
-              <span className="sr-only"> for {name} (opens in a new tab)</span>
-            </a>
-          ) : (
-            <span
-              aria-disabled="true"
-              className={`${actionBase} cursor-not-allowed border-line text-faint`}
-            >
-              <Icon className="size-4" />
-              {label}
-              <span className="sr-only"> for {name}, coming soon</span>
-            </span>
-          )}
+          <a
+            href={links![key]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-(--accent)/30 bg-(--accent)/10 px-3 py-2 text-xs font-medium text-(--accent) transition-colors hover:bg-(--accent)/20"
+          >
+            <Icon className="size-4" />
+            {label}
+            <span className="sr-only"> for {name} (opens in a new tab)</span>
+          </a>
         </li>
-      );
-    })}
-  </ul>
-);
+      ))}
+    </ul>
+  );
+};
 
 export default LinkActions;

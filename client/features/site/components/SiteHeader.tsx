@@ -88,7 +88,7 @@ const SiteHeader = () => {
     <header className="animate-drop fixed inset-x-0 top-0 z-50" onKeyDown={onKeyDown}>
       {/* Soft blurred backdrop that fades out downward — no box, no border. */}
       <div
-        className="pointer-events-none absolute inset-0 bg-background/70 backdrop-blur-md [mask-image:linear-gradient(to_bottom,#000_55%,transparent)]"
+        className="pointer-events-none absolute inset-0 bg-background/85 backdrop-blur-md [mask-image:linear-gradient(to_bottom,#000_55%,transparent)]"
         aria-hidden
       />
       <div className="relative mx-auto grid h-18 max-w-6xl grid-cols-[1fr_auto] items-center px-5 sm:px-8 md:grid-cols-[1fr_auto_1fr]">
@@ -131,13 +131,13 @@ const SiteHeader = () => {
                   aria-current={componentsActive || undefined}
                   className={`${pill} pr-1 ${componentsActive ? "" : pillIdle}`}
                 >
-                  Components
+                  Projects
                 </Link>
                 <button
                   type="button"
                   aria-expanded={menuOpen}
                   aria-controls={menuId}
-                  aria-label="Component categories"
+                  aria-label="Project categories"
                   onClick={() => setMenuOpen((o) => !o)}
                   className="mr-1 grid size-8 place-items-center rounded-full text-muted transition-colors hover:bg-white/10 hover:text-foreground"
                 >
@@ -171,7 +171,7 @@ const SiteHeader = () => {
                               <span className="min-w-0">
                                 <span className="flex items-center gap-2 text-sm font-medium">
                                   {c.name}
-                                  <span className="rounded bg-white/5 px-1.5 font-mono text-[10px] text-faint">
+                                  <span className="rounded bg-white/5 px-1.5 font-mono text-xs text-faint">
                                     {projectsByCategory(c.id).length}
                                   </span>
                                 </span>
@@ -189,7 +189,7 @@ const SiteHeader = () => {
                       onClick={closeAll}
                       className="mt-1 flex items-center justify-between rounded-xl border-t border-white/5 px-3 pb-2 pt-3 text-xs text-muted transition-colors hover:text-foreground"
                     >
-                      <span>{projects.length} components across {categories.length} categories</span>
+                      <span>{projects.length} projects across {categories.length} disciplines</span>
                       <span className="inline-flex items-center gap-1.5 font-medium text-cyan-300">
                         View all <ArrowIcon className="size-3.5" />
                       </span>
@@ -207,7 +207,7 @@ const SiteHeader = () => {
               >
                 <BeakerIcon className="size-4" />
                 Labs
-                <span className="rounded bg-cyan-300 px-1.5 py-px font-mono text-[10px] font-semibold text-slate-950">
+                <span className="rounded bg-cyan-300 px-1.5 py-px font-mono text-xs font-semibold text-slate-950">
                   NEW
                 </span>
               </Link>
@@ -216,14 +216,6 @@ const SiteHeader = () => {
         </nav>
 
         <div className="flex items-center gap-2 justify-self-end">
-          <Link
-            href="/#showcase"
-            onClick={closeAll}
-            className="btn-shine hidden items-center gap-2 rounded-xl bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-200 md:inline-flex"
-          >
-            Browse components
-            <ArrowIcon className="size-4" />
-          </Link>
           <button
             type="button"
             aria-expanded={mobileOpen}
@@ -249,8 +241,8 @@ const SiteHeader = () => {
                 </Link>
               </li>
               <li>
-                <p className="px-3 pb-1 pt-3 font-mono text-[11px] uppercase tracking-widest text-faint">
-                  Components
+                <p className="px-3 pb-1 pt-3 font-mono text-xs uppercase tracking-widest text-faint">
+                  Projects
                 </p>
                 <ul>
                   {categories.map((c) => {
@@ -275,7 +267,7 @@ const SiteHeader = () => {
                 <Link href="/labs" onClick={closeAll} className="flex items-center gap-3 rounded-xl px-3 py-3 font-medium hover:bg-white/5">
                   <BeakerIcon className="size-5 text-cyan-300" />
                   Labs
-                  <span className="rounded bg-cyan-300 px-1.5 py-px font-mono text-[10px] font-semibold text-slate-950">
+                  <span className="rounded bg-cyan-300 px-1.5 py-px font-mono text-xs font-semibold text-slate-950">
                     NEW
                   </span>
                 </Link>

@@ -15,7 +15,7 @@ const find = (slug: string) => {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/components/[slug]">): Promise<Metadata> {
+}: PageProps<"/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const found = find(slug);
   if (!found) return {};
@@ -32,7 +32,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ComponentPage({ params }: PageProps<"/components/[slug]">) {
+export default async function ComponentPage({ params }: PageProps<"/projects/[slug]">) {
   const { slug } = await params;
   const found = find(slug);
   if (!found) notFound();

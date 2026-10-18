@@ -1,32 +1,22 @@
-import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "../config";
-import { ExternalIcon } from "./icons";
+import LogoMark from "./LogoMark";
 
 const SiteFooter = () => (
   <footer className="mt-auto border-t border-line">
-    <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
-      <div className="flex items-center gap-4">
-        <Image
-          src="/rahul_mishra.jpg"
-          alt={siteConfig.author}
-          width={44}
-          height={44}
-          className="size-11 rounded-full border border-line object-cover"
-        />
-        <div>
-          <p className="text-sm font-medium">Built by {siteConfig.author}</p>
-          <p className="text-xs text-faint">
-            AI · RAG · accessibility · performance
-          </p>
-        </div>
-      </div>
+    <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-14 sm:px-8 md:flex-row md:items-center md:justify-between">
+      <Link href="/" className="flex items-center gap-2.5 font-mono text-base font-semibold tracking-tight">
+        <LogoMark className="size-7" />
+        <span>
+          aiaz<span className="text-cyan-300">·</span>labs
+        </span>
+      </Link>
 
       <nav aria-label="Footer" className="text-sm text-muted">
-        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
+        <ul className="flex flex-wrap items-center gap-x-8 gap-y-2">
           <li>
             <Link href="/#showcase" className="hover:text-foreground">
-              Components
+              Projects
             </Link>
           </li>
           <li>
@@ -34,22 +24,10 @@ const SiteFooter = () => (
               Labs
             </Link>
           </li>
-          <li>
-            <a
-              href={siteConfig.portfolioUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-medium text-cyan-300 hover:text-cyan-200"
-            >
-              rahulmishra.com
-              <ExternalIcon className="size-4" />
-              <span className="sr-only">(opens in a new tab)</span>
-            </a>
+          <li className="font-mono text-xs text-faint">
+            © {new Date().getFullYear()} {siteConfig.domain}
           </li>
         </ul>
-        <p className="mt-3 font-mono text-xs text-faint">
-          © {new Date().getFullYear()} {siteConfig.name} · Next.js · React 19 · Tailwind
-        </p>
       </nav>
     </div>
   </footer>

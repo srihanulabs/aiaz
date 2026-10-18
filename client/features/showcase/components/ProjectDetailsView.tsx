@@ -1,11 +1,11 @@
-import Image from "next/image";
+import Image from "@/features/showcase/components/PreviewImage";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import CodeBlock from "@/features/labs/components/CodeBlock";
-import FollowLinks from "@/features/labs/components/FollowLinks";
 import PostCard from "@/features/labs/components/PostCard";
 import TableOfContents from "@/features/labs/components/TableOfContents";
 import { posts } from "@/features/labs/data/posts";
+import { siteConfig } from "@/features/site/config";
 import {
   ArrowIcon,
   PlayIcon,
@@ -56,7 +56,7 @@ const Section = ({
   title: string;
   children: ReactNode;
 }) => (
-  <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-28 border-t border-line pt-12 first:border-0 first:pt-0">
+  <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-28 border-t border-line pt-16 first:border-0 first:pt-0">
     <p className="font-mono text-xs uppercase tracking-widest text-(--accent)">{eyebrow}</p>
     <h2 id={`${id}-heading`} className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
       {title}
@@ -71,10 +71,12 @@ type Props = {
   details: ProjectDetails;
 };
 
-/** Template used by every /components/[slug] page. Content comes from the catalog + details data. */
+/** Template used by every /projects/[slug] page. Content comes from the catalog + details data. */
 const ProjectDetailsView = ({ project, category, details }: Props) => {
   const Icon = categoryIcons[category.id];
-  const { name, summary, tags, status, links, preview } = project;
+  const { name, summary, tags, status, preview } = project;
+  // Every project gets a GitHub link; it points at the repo until the project has its own.
+  const links = { ...project.links, github: project.links?.github ?? siteConfig.repoUrl };
   const index = projectsByCategory(category.id).findIndex((p) => p.slug === project.slug);
   const videoId = youtubeId(links?.video);
   const done = doneCount(status);
@@ -98,7 +100,7 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
         <div className="mx-auto max-w-6xl px-5 pb-14 pt-32 sm:px-8 lg:pt-40">
           <nav aria-label="Breadcrumb" className="animate-rise font-mono text-xs text-muted">
             <ol className="flex flex-wrap items-center gap-2">
-              <li><Link href="/#showcase" className="hover:text-foreground">Components</Link></li>
+              <li><Link href="/#showcase" className="hover:text-foreground">Projects</Link></li>
               <li aria-hidden>/</li>
               <li><Link href={`/#${category.id}`} className="hover:text-foreground">{category.name}</Link></li>
               <li aria-hidden>/</li>
@@ -128,12 +130,12 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
 
               <ul className="animate-rise mt-6 flex flex-wrap gap-2 [animation-delay:300ms]" aria-label="Tech">
                 {tags.map((t) => (
-                  <li key={t} className="rounded-md border border-white/5 bg-white/5 px-2 py-1 font-mono text-[11px] text-slate-300">{t}</li>
+                  <li key={t} className="rounded-md border border-white/5 bg-white/5 px-2 py-1 font-mono text-xs text-slate-300">{t}</li>
                 ))}
               </ul>
 
               <div className="animate-rise mt-8 [animation-delay:360ms]">
-                <LinkActions name={name} links={links ?? {}} />
+                <LinkActions name={name} links={links} />
               </div>
             </div>
 
@@ -151,7 +153,7 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
                 ) : (
                   <Icon className="absolute left-1/2 top-1/2 size-24 -translate-x-1/2 -translate-y-1/2 text-(--accent) opacity-30" strokeWidth={1.1} />
                 )}
-                <span className="absolute left-4 top-4 rounded-md border border-line bg-black/60 px-2 py-1 font-mono text-[10px] tracking-widest text-(--accent) backdrop-blur">
+                <span className="absolute left-4 top-4 rounded-md border border-line bg-black/60 px-2 py-1 font-mono text-xs tracking-widest text-(--accent) backdrop-blur">
                   {`${category.id.slice(0, 3).toUpperCase()}-${String(index + 1).padStart(2, "0")}`}
                 </span>
               </div>
@@ -161,15 +163,15 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-12 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,1fr)_16rem]">
-        <div className="min-w-0 space-y-16">
+      <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[minmax(0,1fr)_16rem]">
+        <div className="min-w-0 space-y-24">
           <Section id="overview" eyebrow="Overview" title="What it solves">
-            <div className="grid gap-5 md:grid-cols-2">
-              <div className="rounded-2xl border border-line bg-surface/70 p-6">
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="rounded-2xl border border-line bg-surface/70 p-8">
                 <p className="font-mono text-xs uppercase tracking-widest text-faint">The problem</p>
                 <p className="mt-3 leading-relaxed text-slate-300">{details.problem}</p>
               </div>
-              <div className="rounded-2xl border border-(--accent)/30 bg-(--accent)/5 p-6">
+              <div className="rounded-2xl border border-(--accent)/30 bg-(--accent)/5 p-8">
                 <p className="font-mono text-xs uppercase tracking-widest text-(--accent)">The approach</p>
                 <p className="mt-3 leading-relaxed text-slate-200">{details.solution}</p>
               </div>
@@ -191,7 +193,7 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
           <Section id="how-it-works" eyebrow="Under the hood" title="How it works">
             <ol className="space-y-0">
               {details.steps.map((s, i) => (
-                <li key={s.title} className="relative flex gap-5 pb-8 last:pb-0">
+                <li key={s.title} className="relative flex gap-6 pb-8 last:pb-0">
                   {i < details.steps.length - 1 && (
                     <span className="absolute left-4.5 top-10 bottom-0 w-px bg-line" aria-hidden />
                   )}
@@ -229,7 +231,7 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
               </div>
             )}
             <div className="mt-5">
-              <LinkActions name={name} links={links ?? {}} />
+              <LinkActions name={name} links={links} />
             </div>
           </Section>
 
@@ -270,8 +272,8 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
           </Section>
 
           <Section id="status" eyebrow="Roadmap" title="Status & stack">
-            <div className="grid gap-5 md:grid-cols-2">
-              <div className="rounded-2xl border border-line bg-surface/70 p-6">
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="rounded-2xl border border-line bg-surface/70 p-8">
                 <h3 className="font-semibold">Build progress</h3>
                 <div className="mt-4"><StageTracker status={status} /></div>
                 <ol className="mt-6 space-y-3">
@@ -280,7 +282,7 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
                     return (
                       <li key={m} className="flex items-center gap-3 text-sm">
                         <span
-                          className={`grid size-5 shrink-0 place-items-center rounded-full border text-[10px] ${
+                          className={`grid size-5 shrink-0 place-items-center rounded-full border text-xs ${
                             state === "done"
                               ? "border-emerald-400 bg-emerald-400 text-slate-950"
                               : state === "current"
@@ -300,7 +302,7 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
                   })}
                 </ol>
               </div>
-              <div className="rounded-2xl border border-line bg-surface/70 p-6">
+              <div className="rounded-2xl border border-line bg-surface/70 p-8">
                 <h3 className="font-semibold">Tech stack</h3>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {details.stack.map((t) => (
@@ -317,7 +319,7 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
             <TableOfContents items={toc} />
             <Link href="/#showcase" className="group inline-flex items-center gap-2 text-sm text-muted hover:text-foreground">
               <ArrowIcon className="size-4 rotate-180 transition-transform group-hover:-translate-x-1" />
-              All components
+              All projects
             </Link>
           </div>
         </aside>
@@ -325,11 +327,11 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
 
       {(relatedPosts.length > 0 || moreProjects.length > 0) && (
         <section className="border-t border-line" aria-label="Related">
-          <div className="mx-auto max-w-6xl space-y-16 px-5 py-16 sm:px-8">
+          <div className="mx-auto max-w-6xl space-y-24 px-5 py-16 sm:px-8">
             {relatedPosts.length > 0 && (
               <div>
-                <h2 className="text-2xl font-semibold tracking-tight">From the Labs</h2>
-                <ul className="mt-8 grid gap-5 md:grid-cols-2">
+                <h2 className="text-2xl font-semibold tracking-tight">Related research</h2>
+                <ul className="mt-8 grid gap-6 md:grid-cols-2">
                   {relatedPosts.map((p) => (
                     <li key={p.slug} className="reveal"><PostCard post={p} /></li>
                   ))}
@@ -339,7 +341,7 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
             {moreProjects.length > 0 && (
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight">More in {category.name}</h2>
-                <ul className="mt-8 grid gap-5 md:grid-cols-2">
+                <ul className="mt-8 grid gap-6 md:grid-cols-2">
                   {moreProjects.map((p) => (
                     <li key={p.slug} className="reveal">
                       <ProjectCard project={p} category={category} index={projectsByCategory(category.id).findIndex((x) => x.slug === p.slug)} />
@@ -348,11 +350,6 @@ const ProjectDetailsView = ({ project, category, details }: Props) => {
                 </ul>
               </div>
             )}
-            <div className="reveal rounded-3xl border border-line bg-surface/70 p-8 sm:p-10">
-              <h2 className="text-xl font-semibold tracking-tight">Follow the build</h2>
-              <p className="mb-6 mt-2 text-muted">Updates on this component land on LinkedIn and social media first.</p>
-              <FollowLinks />
-            </div>
           </div>
         </section>
       )}

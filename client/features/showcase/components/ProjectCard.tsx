@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/features/showcase/components/PreviewImage";
 import Link from "next/link";
 import {
   statusLabels,
@@ -38,7 +38,7 @@ export const StageTracker = ({ status }: { status: ProjectStatus }) => {
         ))}
       </div>
       <div
-        className="mt-1.5 flex justify-between font-mono text-[10px] uppercase tracking-wider text-faint"
+        className="mt-1.5 flex justify-between font-mono text-xs uppercase tracking-wider text-faint"
         aria-hidden
       >
         {stages.map((label, i) => (
@@ -85,7 +85,7 @@ const ProjectCard = ({ project, category, index }: Props) => {
           />
         )}
 
-        <span className="absolute left-4 top-4 rounded-md border border-line bg-black/60 px-2 py-1 font-mono text-[10px] tracking-widest text-(--accent) backdrop-blur">
+        <span className="absolute left-4 top-4 rounded-md border border-line bg-black/60 px-2 py-1 font-mono text-xs tracking-widest text-(--accent) backdrop-blur">
           {code}
         </span>
         <span
@@ -96,23 +96,23 @@ const ProjectCard = ({ project, category, index }: Props) => {
         </span>
       </div>
 
-      <div className="relative flex flex-1 flex-col p-6">
+      <div className="relative flex flex-1 flex-col p-7">
         <h3 className="font-mono text-lg font-semibold tracking-tight">
           {/* Stretched link: the whole card opens the details page. */}
           <Link
-            href={`/components/${slug}`}
+            href={`/projects/${slug}`}
             className="after:absolute after:inset-0 after:content-[''] hover:text-(--accent)"
           >
             {name}
           </Link>
         </h3>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{summary}</p>
+        <p className="mt-3 flex-1 text-[15px] leading-relaxed text-muted">{summary}</p>
 
         <ul className="mt-5 flex flex-wrap gap-2" aria-label="Tech">
           {tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-md border border-white/5 bg-white/5 px-2 py-1 font-mono text-[11px] text-slate-300"
+              className="rounded-md border border-white/5 bg-white/5 px-2 py-1 font-mono text-xs text-slate-300"
             >
               {tag}
             </li>
@@ -124,14 +124,10 @@ const ProjectCard = ({ project, category, index }: Props) => {
         </div>
 
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4 text-sm">
-          {links ? (
-            <LinkActions name={name} links={links} className="relative z-10" />
-          ) : (
-            <span className="text-faint">Demo coming soon</span>
-          )}
+          <LinkActions name={name} links={links} className="relative z-10" />
           <span
             aria-hidden
-            className="inline-flex items-center gap-2 font-medium text-(--accent) transition-[gap] group-hover:gap-3"
+            className="ml-auto inline-flex items-center gap-2 font-medium text-(--accent) transition-[gap] group-hover:gap-3"
           >
             Details <ArrowIcon className="size-4" />
           </span>

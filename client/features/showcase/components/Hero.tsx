@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowIcon } from "@/features/site/components/icons";
-import RegistryTerminal from "./RegistryTerminal";
+import HeroRocket from "./HeroRocket";
 
 const headline: { word: string; gradient?: boolean }[] = [
   { word: "Engineering" },
@@ -40,7 +40,7 @@ const Hero = () => (
 
         <p className="animate-rise mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted [animation-delay:800ms]">
           A working lab for AI interfaces, retrieval (RAG), accessibility and
-          performance. Every idea is built, tested and shown running, so you
+          performance. Every project is built, tested and shown running, so you
           can judge it for yourself.
         </p>
 
@@ -49,19 +49,19 @@ const Hero = () => (
             href="#showcase"
             className="btn-shine group inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-200"
           >
-            Explore the showcase
+            Explore projects
             <ArrowIcon className="size-4 transition-transform group-hover:translate-x-0.5" />
           </a>
           <Link
             href="/labs"
             className="rounded-lg border border-line px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-cyan-300/40 hover:bg-white/5"
           >
-            Read the Labs
+            Read the research
           </Link>
         </div>
       </div>
 
-      <RegistryTerminal />
+      <HeroRocket />
     </div>
   </section>
 );
