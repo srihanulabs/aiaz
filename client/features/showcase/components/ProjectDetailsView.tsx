@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/features/showcase/components/PreviewImage";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import CodeBlock from "@/features/labs/components/CodeBlock";

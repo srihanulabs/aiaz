@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/features/showcase/components/PreviewImage";
 import Link from "next/link";
 import { categories } from "@/features/showcase/data/catalog";
 import SpotlightCard from "@/features/showcase/components/SpotlightCard";
