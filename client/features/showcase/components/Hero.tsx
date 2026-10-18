@@ -16,8 +16,8 @@ const Hero = () => (
   <section className="relative isolate overflow-hidden">
     <div className="bg-grid absolute inset-0 -z-10" aria-hidden />
 
-    <div className="mx-auto max-w-6xl px-5 pb-20 pt-32 sm:px-8 lg:pt-40">
-      <div className="max-w-3xl">
+    <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-32 sm:px-8 lg:min-h-[44rem] lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:pb-16 lg:pt-28">
+      <div>
         <p className="animate-rise inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-3.5 py-1.5 font-mono text-xs text-muted">
           <span className="relative flex size-2" aria-hidden>
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400/70" />
@@ -26,7 +26,7 @@ const Hero = () => (
           AI engineering lab · actively developed
         </p>
 
-        <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.08] tracking-tight [perspective:600px] sm:text-6xl">
+        <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.08] tracking-tight [perspective:600px] sm:text-5xl xl:text-6xl">
           {headline.map(({ word, gradient }, i) => (
             <span
               key={i}
@@ -38,7 +38,7 @@ const Hero = () => (
           ))}
         </h1>
 
-        <p className="animate-rise mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted [animation-delay:800ms]">
+        <p className="animate-rise mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted [animation-delay:800ms]">
           A working lab for AI interfaces, retrieval (RAG), accessibility and
           performance. Every idea is built, tested and shown running, so you
           can judge it for yourself.
@@ -61,9 +61,7 @@ const Hero = () => (
         </div>
       </div>
 
-      <div className="mt-14">
-        <RegistryTerminal />
-      </div>
+      <RegistryTerminal />
     </div>
   </section>
 );

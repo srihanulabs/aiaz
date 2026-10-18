@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   categories,
   projects,
@@ -16,30 +17,23 @@ const dot: Record<ProjectStatus, string> = {
 
 const legend: ProjectStatus[] = ["live", "in-progress", "planned"];
 
-/** Delay for the nth row so the readout "types in" left to right, top to bottom. */
-const rowDelay = (n: number) => ({ animationDelay: `${700 + n * 70}ms` });
+/** Delay for the nth row so the readout "types in" top to bottom. */
+const rowDelay = (n: number) => ({ animationDelay: `${600 + n * 60}ms` });
 
-const summary = categories
-  .map(
-    (c) =>
-      `${c.name}: ${projectsByCategory(c.id)
-        .map((p) => `${p.name} (${statusLabels[p.status].toLowerCase()})`)
-        .join(", ")}`,
-  )
-  .join(". ");
-
-/** Wide, short readout of every component grouped by category. Decorative but data-driven. */
+/**
+ * Compact registry of every component, grouped by category. Each name links to
+ * its details page, so the hero doubles as quick navigation.
+ */
 const RegistryTerminal = () => {
   let row = 0;
 
   return (
-    <div
-      className="animate-rise overflow-hidden rounded-2xl border border-line bg-surface [animation-delay:400ms]"
-      role="img"
-      aria-label={`Component registry. ${projects.length} components in ${categories.length} categories. ${summary}`}
+    <section
+      aria-label="Component registry"
+      className="animate-rise overflow-hidden rounded-2xl border border-line bg-surface [animation-delay:300ms]"
     >
-      <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-3" aria-hidden>
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
+        <div className="flex items-center gap-2" aria-hidden>
           <span className="size-3 rounded-full bg-red-400/70" />
           <span className="size-3 rounded-full bg-amber-400/70" />
           <span className="size-3 rounded-full bg-emerald-400/70" />
@@ -50,36 +44,39 @@ const RegistryTerminal = () => {
         </p>
       </div>
 
-      <div className="p-5 font-mono text-[13px] leading-6" aria-hidden>
-        <p className="animate-rise text-slate-300" style={rowDelay(row++)}>
+      <div className="p-5 font-mono text-[13px] leading-6">
+        <p className="animate-rise text-slate-300" style={rowDelay(row++)} aria-hidden>
           <span className="text-emerald-400">❯</span> show components{" "}
           <span className="text-faint">--by category</span>
           <span className="caret ml-1" />
         </p>
 
-        <div className="mt-5 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-5 grid gap-x-6 gap-y-6 sm:grid-cols-2">
           {categories.map((c) => {
             const Icon = categoryIcons[c.id];
             const items = projectsByCategory(c.id);
             return (
               <div key={c.id}>
-                <p
-                  className="animate-rise flex items-center gap-2 border-b border-line pb-2 font-semibold"
+                <Link
+                  href={`/#${c.id}`}
+                  className="animate-rise flex items-center gap-2 border-b border-line pb-2 font-semibold transition-opacity hover:opacity-80"
                   style={{ color: c.accent, ...rowDelay(row++) }}
                 >
                   <Icon className="size-4" />
                   {c.name}
                   <span className="ml-auto font-normal text-faint">{items.length}</span>
-                </p>
+                </Link>
                 <ul className="mt-2 space-y-0.5">
                   {items.map((p) => (
-                    <li
-                      key={p.slug}
-                      className="animate-rise flex items-center gap-2.5 text-slate-300"
-                      style={rowDelay(row++)}
-                    >
-                      <span className={`size-2 shrink-0 rounded-full ${dot[p.status]}`} />
-                      {p.name}
+                    <li key={p.slug} className="animate-rise" style={rowDelay(row++)}>
+                      <Link
+                        href={`/components/${p.slug}`}
+                        className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-0.5 text-slate-300 transition-colors hover:bg-white/5 hover:text-white"
+                      >
+                        <span className={`size-2 shrink-0 rounded-full ${dot[p.status]}`} aria-hidden />
+                        {p.name}
+                        <span className="sr-only"> — {statusLabels[p.status]}</span>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -100,7 +97,7 @@ const RegistryTerminal = () => {
           </span>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
