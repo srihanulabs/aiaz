@@ -99,6 +99,7 @@ export const projects: Project[] = [
   // AI
   {
     slug: "streaming-chat",
+    preview: "/previews/streaming-chat.webp",
     category: "ai",
     name: "StreamingChat",
     summary:
@@ -108,6 +109,7 @@ export const projects: Project[] = [
   },
   {
     slug: "prompt-playground",
+    preview: "/previews/prompt-playground.webp",
     category: "ai",
     name: "PromptPlayground",
     summary:
@@ -117,6 +119,7 @@ export const projects: Project[] = [
   },
   {
     slug: "agent-trace-viewer",
+    preview: "/previews/agent-trace-viewer.webp",
     category: "ai",
     name: "AgentTraceViewer",
     summary:
@@ -128,6 +131,7 @@ export const projects: Project[] = [
   // Accessibility
   {
     slug: "accessible-combobox",
+    preview: "/previews/accessible-combobox.webp",
     category: "accessibility",
     name: "AccessibleCombobox",
     summary:
@@ -137,6 +141,7 @@ export const projects: Project[] = [
   },
   {
     slug: "focus-trap-dialog",
+    preview: "/previews/focus-trap-dialog.webp",
     category: "accessibility",
     name: "FocusTrapDialog",
     summary:
@@ -146,6 +151,7 @@ export const projects: Project[] = [
   },
   {
     slug: "live-region-toaster",
+    preview: "/previews/live-region-toaster.webp",
     category: "accessibility",
     name: "LiveRegionToaster",
     summary:
@@ -157,6 +163,7 @@ export const projects: Project[] = [
   // RAG
   {
     slug: "cited-answer",
+    preview: "/previews/cited-answer.webp",
     category: "rag",
     name: "CitedAnswer",
     summary:
@@ -167,6 +174,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ingestion-monitor",
+    preview: "/previews/ingestion-monitor.webp",
     category: "rag",
     name: "IngestionMonitor",
     summary:
@@ -177,6 +185,7 @@ export const projects: Project[] = [
   },
   {
     slug: "hybrid-search-box",
+    preview: "/previews/hybrid-search-box.webp",
     category: "rag",
     name: "HybridSearchBox",
     summary:
@@ -189,6 +198,7 @@ export const projects: Project[] = [
   // Optimised
   {
     slug: "virtualised-table",
+    preview: "/previews/virtualised-table.webp",
     category: "optimised",
     name: "VirtualisedTable",
     summary:
@@ -198,6 +208,7 @@ export const projects: Project[] = [
   },
   {
     slug: "adaptive-image-gallery",
+    preview: "/previews/adaptive-image-gallery.webp",
     category: "optimised",
     name: "AdaptiveImageGallery",
     summary:
@@ -207,6 +218,7 @@ export const projects: Project[] = [
   },
   {
     slug: "deferred-search",
+    preview: "/previews/deferred-search.webp",
     category: "optimised",
     name: "DeferredSearch",
     summary:

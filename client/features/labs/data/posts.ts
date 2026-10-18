@@ -22,6 +22,8 @@ export type LabsPost = {
   publishedAt?: string;
   /** Where the post lives (internal route or external article). Required to be clickable. */
   href?: string;
+  /** Image for the featured card (path under /public). */
+  preview?: string;
   /** Article body. Posts without content render an "in the works" page. */
   content?: Block[];
 };
@@ -40,6 +42,7 @@ export const posts: LabsPost[] = [
     status: "published",
     publishedAt: "2026-10-19",
     href: "/labs/streaming-chat-ui",
+    preview: "/previews/streaming-chat.webp",
     content: [
       {
         type: "p",

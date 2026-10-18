@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { categories } from "@/features/showcase/data/catalog";
 import SpotlightCard from "@/features/showcase/components/SpotlightCard";
@@ -39,7 +40,17 @@ const PostCard = ({ post, featured = false }: Props) => {
     >
       {featured && (
         <div className="preview-pattern relative mb-8 grid min-h-48 place-items-center overflow-hidden rounded-xl border border-line lg:mb-0 lg:w-2/5 lg:min-h-64">
-          <Icon className="size-24 text-(--accent) opacity-40" strokeWidth={1.1} />
+          {post.preview ? (
+            <Image
+              src={post.preview}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 420px, 100vw"
+              className="object-cover"
+            />
+          ) : (
+            <Icon className="size-24 text-(--accent) opacity-40" strokeWidth={1.1} />
+          )}
           <span className="absolute left-4 top-4 rounded-md border border-line bg-black/40 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-(--accent) backdrop-blur">
             Featured
           </span>
