@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowIcon } from "@/features/site/components/icons";
-import RegistryTerminal from "./RegistryTerminal";
+import HeroRocket from "./HeroRocket";
 
 const headline: { word: string; gradient?: boolean }[] = [
   { word: "Engineering" },
@@ -61,7 +61,7 @@ const Hero = () => (
         </div>
       </div>
 
-      <RegistryTerminal />
+      <HeroRocket />
     </div>
   </section>
 );
