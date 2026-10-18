@@ -23,7 +23,7 @@ const CopyButton = ({ text, label = "Copy code" }: { text: string; label?: strin
     <button
       type="button"
       onClick={copy}
-      className="rounded-md border border-line px-2.5 py-1 font-mono text-[11px] text-muted transition-colors hover:border-cyan-300/40 hover:text-foreground"
+      className="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-muted transition-colors hover:border-cyan-300/40 hover:text-foreground"
     >
       {copied ? "Copied ✓" : label}
       <span className="sr-only" role="status">

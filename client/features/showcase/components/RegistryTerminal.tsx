@@ -29,7 +29,7 @@ const RegistryTerminal = () => {
 
   return (
     <section
-      aria-label="Component registry"
+      aria-label="Project registry"
       className="animate-rise overflow-hidden rounded-2xl border border-line bg-surface [animation-delay:300ms]"
     >
       <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
@@ -37,16 +37,16 @@ const RegistryTerminal = () => {
           <span className="size-3 rounded-full bg-red-400/70" />
           <span className="size-3 rounded-full bg-amber-400/70" />
           <span className="size-3 rounded-full bg-emerald-400/70" />
-          <span className="ml-3 hidden font-mono text-xs text-faint sm:inline">component registry</span>
+          <span className="ml-3 hidden font-mono text-xs text-faint sm:inline">project registry</span>
         </div>
         <p className="whitespace-nowrap font-mono text-xs text-muted">
-          <CountUp value={projects.length} /> components · {categories.length} categories
+          <CountUp value={projects.length} /> projects · {categories.length} disciplines
         </p>
       </div>
 
       <div className="p-5 font-mono text-[13px] leading-6">
         <p className="animate-rise text-slate-300" style={rowDelay(row++)} aria-hidden>
-          <span className="text-emerald-400">❯</span> show components{" "}
+          <span className="text-emerald-400">❯</span> show projects{" "}
           <span className="text-faint">--by category</span>
           <span className="caret ml-1" />
         </p>
@@ -70,7 +70,7 @@ const RegistryTerminal = () => {
                   {items.map((p) => (
                     <li key={p.slug} className="animate-rise" style={rowDelay(row++)}>
                       <Link
-                        href={`/components/${p.slug}`}
+                        href={`/projects/${p.slug}`}
                         className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-0.5 text-slate-300 transition-colors hover:bg-white/5 hover:text-white"
                       >
                         <span className={`size-2 shrink-0 rounded-full ${dot[p.status]}`} aria-hidden />

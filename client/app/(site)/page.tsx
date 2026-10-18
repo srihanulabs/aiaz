@@ -1,11 +1,13 @@
+import ResearchTeaser from "@/features/labs/components/ResearchTeaser";
 import Hero from "@/features/showcase/components/Hero";
-import Showcase from "@/features/showcase/components/Showcase";
+import ProjectExplorer from "@/features/showcase/components/ProjectExplorer";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Showcase />
+      <ProjectExplorer />
+      <ResearchTeaser />
     </>
   );
 }

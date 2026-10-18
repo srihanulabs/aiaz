@@ -5,17 +5,19 @@ import type { CSSProperties, PointerEvent, ReactNode } from "react";
 type Props = {
   accent: string;
   className?: string;
+  /** Set false for large surfaces where tilting text would hurt readability. */
+  tilt?: boolean;
   children: ReactNode;
 };
 
 const MAX_TILT_DEG = 5;
 
 /**
- * Card with a pointer-tracking glow and a subtle 3D tilt. The visuals live in
- * CSS (see `.spotlight` in globals.css); this component only feeds it
- * coordinates, and skips the tilt for touch input and reduced motion.
+ * Card with a pointer-tracking glow and an optional subtle 3D tilt. The
+ * visuals live in CSS (see `.spotlight` in globals.css); this component only
+ * feeds it coordinates, and skips the tilt for touch input and reduced motion.
  */
-const SpotlightCard = ({ accent, className = "", children }: Props) => {
+const SpotlightCard = ({ accent, className = "", tilt = true, children }: Props) => {
   const onPointerMove = (e: PointerEvent<HTMLElement>) => {
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
@@ -25,6 +27,7 @@ const SpotlightCard = ({ accent, className = "", children }: Props) => {
     el.style.setProperty("--my", `${y}px`);
 
     if (
+      !tilt ||
       e.pointerType !== "mouse" ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {

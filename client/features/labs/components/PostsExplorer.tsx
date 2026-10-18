@@ -62,9 +62,9 @@ const PostsExplorer = ({ posts }: { posts: LabsPost[] }) => {
       </p>
 
       {visible.length === 0 ? (
-        <p className="mt-10 text-muted">No posts in this topic yet.</p>
+        <p className="mt-12 text-muted">No posts in this topic yet.</p>
       ) : (
-        <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {visible.map((p) => (
             <li key={p.slug} className="reveal">
               <PostCard post={p} />

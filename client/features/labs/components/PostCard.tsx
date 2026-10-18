@@ -35,7 +35,7 @@ const PostCard = ({ post, featured = false }: Props) => {
     <SpotlightCard
       accent={category.accent}
       className={`group relative flex h-full flex-col rounded-2xl border border-line bg-surface/70 backdrop-blur transition-[border-color,transform] duration-300 hover:border-(--accent)/40 ${
-        featured ? "p-8 sm:p-10 lg:flex-row lg:gap-10" : "p-6 hover:-translate-y-1"
+        featured ? "p-8 sm:p-10 lg:flex-row lg:gap-10" : "p-7 hover:-translate-y-1"
       }`}
     >
       {featured && (
@@ -51,21 +51,19 @@ const PostCard = ({ post, featured = false }: Props) => {
           ) : (
             <Icon className="size-24 text-(--accent) opacity-40" strokeWidth={1.1} />
           )}
-          <span className="absolute left-4 top-4 rounded-md border border-line bg-black/40 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-(--accent) backdrop-blur">
+          <span className="absolute left-4 top-4 rounded-md border border-line bg-black/40 px-2 py-1 font-mono text-xs uppercase tracking-widest text-(--accent) backdrop-blur">
             Featured
           </span>
         </div>
       )}
 
       <div className="relative flex flex-1 flex-col">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs">
           <span className="inline-flex items-center gap-1.5 text-(--accent)">
             <Icon className="size-4" />
             {category.name}
           </span>
-          <span className="text-faint">·</span>
           <span className="text-faint">{post.readTime}</span>
-          <span className="text-faint">·</span>
           <span className={post.status === "published" ? "text-emerald-300" : "text-faint"}>
             {post.publishedAt ? (
               <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
@@ -88,7 +86,7 @@ const PostCard = ({ post, featured = false }: Props) => {
           {post.tags.map((t) => (
             <li
               key={t}
-              className="rounded-md border border-white/5 bg-white/5 px-2 py-1 font-mono text-[11px] text-slate-300"
+              className="rounded-md border border-white/5 bg-white/5 px-2 py-1 font-mono text-xs text-slate-300"
             >
               {t}
             </li>
@@ -98,7 +96,7 @@ const PostCard = ({ post, featured = false }: Props) => {
         <div className="mt-6 border-t border-line pt-4 text-sm">
           {readable ? (
             <span className="inline-flex items-center gap-2 font-medium text-(--accent) transition-[gap] group-hover:gap-3">
-              Read the post <ArrowIcon className="size-4" />
+              Read the note <ArrowIcon className="size-4" />
             </span>
           ) : (
             <span className="text-faint">In the works</span>
